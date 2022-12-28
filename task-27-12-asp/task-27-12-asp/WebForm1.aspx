@@ -1,5 +1,6 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site1.Master" AutoEventWireup="true" CodeBehind="WebForm1.aspx.cs" Inherits="task_27_12_asp.WebForm1" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
+   <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
 
@@ -23,7 +24,7 @@
                     
                         <asp:TextBox ID="form3Example1c" class="form-control" runat="server"></asp:TextBox>
 
-                        <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" ErrorMessage="Is Required " ControlToValidate="form3Example1c" CssClass="error"></asp:RequiredFieldValidator>
+                        <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" ErrorMessage="you must write your name" ControlToValidate="form3Example1c" CssClass="error" ValidationGroup="register">*</asp:RequiredFieldValidator>
                     </div>
                   </div>
 
@@ -33,7 +34,8 @@
                               <label class="form-label" for="form3Example3c">Your Email</label>
             
                         <asp:TextBox ID="form3Example3c" class="form-control" runat="server"></asp:TextBox>
-                        <asp:RegularExpressionValidator ID="RegularExpressionValidator1" runat="server" ErrorMessage="Your email is correct" ControlToValidate="form3Example3c" CssClass="error"></asp:RegularExpressionValidator>
+                   
+                        <asp:RequiredFieldValidator ID="RequiredFieldValidator5" runat="server" ErrorMessage="you must write your email" CssClass="error" ControlToValidate="form3Example3c" ValidationGroup="register">*</asp:RequiredFieldValidator>
                     </div>
                   </div>
 
@@ -41,8 +43,9 @@
                     <i class="fas fa-lock fa-lg me-3 fa-fw"></i>
                     <div class="form-outline flex-fill mb-0">
                         <label class="form-label" for="form3Example4c">Password</label>
-                      <input type="password" id="form3Example4c" class="form-control" />
-                      
+                     
+                        <asp:TextBox ID="form3Example4c" type="password" class="form-control" runat="server"></asp:TextBox>
+                        <asp:RequiredFieldValidator ID="RequiredFieldValidator4" runat="server" ErrorMessage="you must write your password" ControlToValidate="form3Example4c" CssClass="error" ValidationGroup="register">*</asp:RequiredFieldValidator>
                     </div>
                   </div>
 
@@ -50,8 +53,10 @@
                     <i class="fas fa-key fa-lg me-3 fa-fw"></i>
                     <div class="form-outline flex-fill mb-0">
                          <label class="form-label" for="form3Example4cd">Repeat your password</label>
-                      <input type="password" id="form3Example4cd" class="form-control" />
-                        
+                        <asp:TextBox ID="form3Example4cd" type="password" class="form-control" runat="server"></asp:TextBox>
+                        <asp:CompareValidator ID="CompareValidator1" runat="server" ErrorMessage="password not match" ControlToCompare="form3Example4c" ControlToValidate="form3Example4cd" CssClass="error" ValidationGroup="register" >*</asp:CompareValidator>
+                         <br />
+                         <asp:RequiredFieldValidator ID="RequiredFieldValidator6" runat="server" ErrorMessage="Re-enter your password" ValidationGroup="register" CssClass="error" ControlToValidate="form3Example4cd">*</asp:RequiredFieldValidator>
                     </div>
                   </div>
 
@@ -64,7 +69,7 @@
 
                   <div class="d-flex justify-content-center mx-4 mb-3 mb-lg-4">
               
-                      <asp:Button ID="Button1" class="btn btn-primary btn-lg" runat="server" Text="Register" />
+                      <asp:Button ID="Button1" class="btn btn-primary btn-lg" runat="server" Text="Register" ValidationGroup="register" OnClick="Button1_Click" />
                   </div>
 
             
@@ -78,22 +83,28 @@
             </div>
           </div>
         </div>
+          <asp:ValidationSummary ID="ValidationSummary1" runat="server" CssClass="error" ValidationGroup="register" />
       </div>
     </div>
   </div>
 </section>
     <br />
-    <form>
+    <div class="container" >
+ 
   <!-- Email input -->
   <div class="form-outline mb-4">
-    <input type="email" id="form2Example1" class="form-control" />
+     <asp:TextBox ID="form2Example1" runat="server" class="form-control"></asp:TextBox>
     <label class="form-label" for="form2Example1">Email address</label>
+     
+      <asp:RequiredFieldValidator ID="RequiredFieldValidator2" runat="server" ErrorMessage="you must write your email" ControlToValidate="form2Example1" CssClass="error" ValidationGroup="login">*</asp:RequiredFieldValidator>
   </div>
 
   <!-- Password input -->
   <div class="form-outline mb-4">
-    <input type="password" id="form2Example2" class="form-control" />
+
+      <asp:TextBox ID="form2Example2" type="password" runat="server"  class="form-control"></asp:TextBox>
     <label class="form-label" for="form2Example2">Password</label>
+      <asp:RequiredFieldValidator ID="RequiredFieldValidator3" runat="server" ErrorMessage="you must write your password" ControlToValidate="form2Example2" CssClass="error" ValidationGroup="login">*</asp:RequiredFieldValidator>
   </div>
 
   <!-- 2 column grid layout for inline styling -->
@@ -113,12 +124,14 @@
   </div>
 
   <!-- Submit button -->
-  <button type="button" class="btn btn-primary btn-block mb-4">Sign in</button>
+  
+        <asp:Button ID="Button2" class="btn btn-primary btn-block mb-4" runat="server" Text="Sig in" ValidationGroup="login" OnClick="Button2_Click" />
 
   <!-- Register buttons -->
   <div class="text-center">
     <p>Not a member? <a href="#!">Register</a></p>
-    <p>or sign up with:</p>
+      <p>
+          or sign up with:</p>
     <button type="button" class="btn btn-link btn-floating mx-1">
       <i class="fab fa-facebook-f"></i>
     </button>
@@ -135,5 +148,7 @@
       <i class="fab fa-github"></i>
     </button>
   </div>
-</form>
+
+        </div>
+    <asp:ValidationSummary ID="ValidationSummary2" runat="server" CssClass="error" ValidationGroup="login" />
 </asp:Content>
