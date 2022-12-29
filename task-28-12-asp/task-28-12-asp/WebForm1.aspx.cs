@@ -18,16 +18,19 @@ namespace task_28_12_asp
         {
             string comment = TextBox1.Text;
 
-            string q = $"insert into Comments (comment ) values ('{comment}')";
+        
             SqlConnection con = new SqlConnection("data source = DESKTOP-J9PIM9O\\SQLEXPRESS ; database=FINAL ; integrated security= sspi");
-            SqlCommand comand = new SqlCommand(q, con);
             con.Open();
+            string q = $"insert into comment (comment) values (@comment)";
+            SqlCommand comand = new SqlCommand(q, con);
+            comand.Parameters.AddWithValue("@comment", TextBox1.Text);
             comand.ExecuteNonQuery();
 
             if (comment == "")
             {
                 return;
             }
+
             ScriptManager.RegisterClientScriptBlock(this.Page, this.Page.GetType(), "alert",
                 "swal('Thank You!', 'Your Comment Added Seccessfully ')", true);
 
